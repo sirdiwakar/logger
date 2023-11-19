@@ -11,6 +11,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/", logController.postLog);
-app.get("/", logController.getAllLogs);
+app.post("/logs", logController.postLog);
+app.get("/logs", logController.getAllLogs);
 module.exports = app;
