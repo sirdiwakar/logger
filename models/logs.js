@@ -43,7 +43,13 @@ const logSchema = new mongoose.Schema(
 );
 
 logSchema.index({timestamp: 1, level: 1, message: 1, commit: 1, traceId: 1});
-
+logSchema.index({ timestamp: 1 }); // Index on timestamp field (ascending)
+logSchema.index({ resourceId: 1 }); // Index on resourceId field
+logSchema.index({ level: 1 }); // Index on level field
+logSchema.index({ traceId: 1 }); // Index on traceId field
+logSchema.index({ spanId: 1 }); // Index on spanId field
+logSchema.index({ commit: 1 }); // Index on commit field
+logSchema.index({ resourceId: 1, level: 1 });
 
 const Log = mongoose.model('Log', logSchema);
 

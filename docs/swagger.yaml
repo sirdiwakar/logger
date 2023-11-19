@@ -1,0 +1,147 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: Log Management API
+  description: API for managing log data
+
+paths:
+  /logs:
+    post:
+      summary: Ingest log data
+      description: Ingests log data into the system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogObject'
+      responses:
+        '200':
+          description: Log ingested successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostLogResponse'
+
+    get:
+      summary: Get logs
+      description: Retrieves logs based on specified criteria
+      parameters:
+        - name: sortBy
+          in: query
+          description: Field to sort by
+          schema:
+            type: string
+        - name: sortOrder
+          in: query
+          description: Sort order (asc or desc)
+          schema:
+            type: string
+        - name: currentPage
+          in: query
+          description: Current page number
+          schema:
+            type: integer
+        - name: logsPerPage
+          in: query
+          description: Number of logs per page
+          schema:
+            type: integer
+        - name: level
+          in: query
+          description: Filter by log level
+          schema:
+            type: string
+        - name: resourceId
+          in: query
+          description: Filter by resource ID
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          description: Filter by timestamp
+          schema:
+            type: string
+            format: date-time
+        - name: traceId
+          in: query
+          description: Filter by trace ID
+          schema:
+            type: string
+        - name: spanId
+          in: query
+          description: Filter by span ID
+          schema:
+            type: string
+        - name: commit
+          in: query
+          description: Filter by commit
+          schema:
+            type: string
+        - name: parentResourceId
+          in: query
+          description: Filter by parent resource ID in metadata
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+
+components:
+  schemas:
+    LogObject:
+      type: object
+      properties:
+        level:
+          type: string
+        message:
+          type: string
+        resourceId:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        traceId:
+          type: string
+        spanId:
+          type: string
+        commit:
+          type: string
+        metadata:
+          type: object
+          properties:
+            parentResourceId:
+              type: string
+    
+    LogResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogObject'
+        sortBy:
+          type: string
+        sortOrder:
+          type: string
+        currentPage:
+          type: integer
+        logsPerPage:
+          type: integer
+        totalCount:
+          type: integer
+
+    PostLogResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LogObject'
