@@ -27,6 +27,7 @@ This system is designed to efficiently handle and query vast volumes of log data
 
 ## Installation
 
+### Local Setup
 1. Clone this repository.
 2. Install dependencies using `npm install`.
 3. Create a `.env` file and add following keys to it:
@@ -34,6 +35,15 @@ This system is designed to efficiently handle and query vast volumes of log data
     - `PASSWORD`: Password for MongoDB authentication.
     - `PORT`: Port number for the HTTP server (default: 3000)
 4. Run the application using `npm start`.
+
+### Using Docker
+1. Clone this repository.
+2. Create a `.env` file and add following keys to it:
+    - `DATABASE`: MongoDB connection string.
+    - `PASSWORD`: Password for MongoDB authentication.
+    - `PORT`: Port number for the HTTP server (default: 3000)
+3. Run the application using `docker-compose up --build app`.
+4. Edit the `docker-compose.yml` file to customize different parameters.
 
 ## Usage
 
